@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONLYHUMANS — Players</title>
+<meta name="description" content="ONLYHUMANS ladder and player profiles.">
+<meta name="theme-color" content="#04070d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Russo+One&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04070d; --panel:#0e1c2e; --line:#1c3a57; --ice:#8fd8f8; --ice2:#cfeeff;
+  --blue:#2e8fc7; --deep:#16486e; --orange:#ff7a2f; --good:#5cf2a6; --bad:#ff5c5c;
+  --text:#c8dcec; --dim:#5d7990;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:
+  radial-gradient(900px 400px at 50% -10%,#10243c 0%,transparent 60%),var(--bg);
+  color:var(--text);font-family:'Chakra Petch',sans-serif;min-height:100vh}
+::selection{background:var(--orange);color:#fff}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#060c16}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--deep),var(--blue));border-radius:5px}
+a{color:var(--ice);text-decoration:none}
+.mono{font-family:'Share Tech Mono',monospace}
+
+header{display:flex;align-items:center;gap:16px;padding:18px 5vw;border-bottom:1px solid var(--line);
+  background:rgba(7,14,25,.7);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
+header .logo{font-family:'Russo One',sans-serif;font-size:18px;color:#fff;letter-spacing:.06em}
+header .logo .o{color:var(--orange)}
+header nav{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+header nav a{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.08em;
+  text-transform:uppercase;border:1px solid var(--line);padding:8px 14px;transition:.2s}
+header nav a:hover{border-color:var(--orange);color:var(--orange)}
+
+main{max-width:1180px;margin:0 auto;padding:46px 5vw 90px}
+.kicker{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:13px;letter-spacing:.22em;color:var(--orange);
+  text-transform:uppercase;margin-bottom:10px}
+.kicker::before{content:"— ";color:var(--blue)}
+h1{font-family:'Russo One',sans-serif;font-size:clamp(30px,5vw,52px);color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;
+  text-shadow:0 0 26px rgba(143,216,248,.25)}
+.sub{color:var(--dim);font-size:16.5px;margin-bottom:34px;max-width:680px;line-height:1.65}
+
+/* board */
+.toolbar{display:flex;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.toolbar input{flex:1;min-width:220px;background:#0a141f;border:1px solid var(--line);color:var(--ice2);
+  font-family:'Chakra Petch',sans-serif;font-size:14.5px;padding:12px 15px;outline:none}
+.toolbar input:focus{border-color:var(--blue)}
+.toolbar .count{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+.board{border:1px solid var(--line);background:rgba(10,20,36,.6)}
+.bh,.br{display:grid;grid-template-columns:58px 1fr 92px 86px 80px 64px 100px;gap:12px;align-items:center;padding:13px 18px}
+.bh{position:sticky;top:69px;background:#10233a;border-bottom:1px solid var(--line);z-index:5;
+  font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;color:var(--ice);text-transform:uppercase}
+.br{border-bottom:1px solid rgba(28,58,87,.4);font-size:15.5px;cursor:pointer;transition:.15s}
+.br:hover{background:rgba(46,143,199,.1)}
+.br .rk{font-family:'Russo One',sans-serif;font-size:18px;color:var(--dim)}
+.br.r1 .rk{color:var(--orange)}.br.r2 .rk{color:var(--ice2)}.br.r3 .rk{color:#c98a4b}
+.pcell{display:flex;align-items:center;gap:12px;min-width:0}
+.ava{width:42px;height:42px;flex:none;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-family:'Russo One',sans-serif;font-size:17px;color:#fff;border:1px solid var(--deep);
+  background:linear-gradient(150deg,#1c3a57,#10243c);overflow:hidden}
+.ava img{width:42px;height:42px;object-fit:cover;border-radius:6px}
+.pcell .nm{color:#fff;font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcell .meta{font-family:'Chakra Petch',sans-serif;font-size:13px;color:var(--dim);margin-top:3px}
+.mmr{font-family:'Russo One',sans-serif;color:var(--ice);font-size:19px;text-align:right}
+.mono2{font-family:'Chakra Petch',sans-serif;font-size:14px;color:var(--dim);text-align:right}
+.stk{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:13.5px;text-align:right}
+.stk.up{color:var(--good)}.stk.down{color:var(--bad)}
+.l10{display:inline-flex;gap:2px;justify-content:flex-end}
+.l10 i{width:9px;height:9px;border-radius:1px;background:#23476b}
+.l10 i.W{background:var(--good)}.l10 i.L{background:var(--bad)}
+
+/* profile */
+.backlink{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  display:inline-block;margin-bottom:22px}
+.backlink:hover{color:var(--orange)}
+.phead{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:18px}
+.phead .bigava{width:84px;height:84px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-family:'Russo One',sans-serif;font-size:34px;color:#fff;border:2px solid var(--blue);
+  background:linear-gradient(150deg,#1c3a57,#0d2033);box-shadow:0 10px 30px rgba(0,0,0,.5);overflow:hidden}
+.phead .bigava img{width:84px;height:84px;object-fit:cover;border-radius:10px}
+.phead h1{margin:0}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 36px}
+.badge{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid;padding:8px 16px}
+.badge.rank{color:var(--orange);border-color:var(--orange)}
+.badge.cal{color:var(--good);border-color:var(--good)}
+.badge.uncal{color:var(--ice);border-color:var(--deep)}
+.badge.steam{color:var(--ice);border-color:var(--deep)}
+.badge.btn{cursor:pointer;color:var(--ice2);border-color:var(--ice);transition:.2s;background:rgba(143,216,248,.05)}
+.badge.btn:hover{border-color:var(--orange);color:var(--orange)}
+
+.tabs{display:flex;gap:26px;border-bottom:1px solid var(--line);margin-bottom:26px;flex-wrap:wrap}
+.tab{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.1em;color:var(--dim);
+  text-transform:uppercase;padding:12px 2px;cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+.tab:hover{color:var(--ice)}
+.tab.on{color:var(--ice2);border-bottom-color:var(--blue)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.stat{border:1px solid var(--line);background:linear-gradient(160deg,#10233a,#0a1626 70%);padding:18px 20px}
+.stat .k{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:12px;letter-spacing:.1em;color:var(--dim);
+  text-transform:uppercase;display:flex;align-items:center;gap:7px}
+.stat .k::before{content:"◈";color:var(--blue)}
+.stat .v{font-family:'Russo One',sans-serif;font-size:34px;margin-top:10px;color:var(--ice2)}
+.stat .v.ice{color:var(--ice)}.stat .v.good{color:var(--good)}.stat .v.bad{color:var(--bad)}
+.stat .v.or{color:var(--orange)}.stat .v sub{font-size:14px;color:var(--dim);font-family:'Chakra Petch',sans-serif}
+
+.tbl{border:1px solid var(--line);background:rgba(10,20,36,.6);overflow-x:auto}
+.tr{display:grid;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid rgba(28,58,87,.4);min-width:660px;font-size:15px}
+.tr.head{background:#10233a;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;
+  color:var(--ice);text-transform:uppercase;border-bottom:1px solid var(--line)}
+.tr.m{grid-template-columns:1.4fr 86px 110px 110px 86px 110px 40px}
+.tr.h{grid-template-columns:1.4fr 80px 90px 130px 80px}
+.hcell{display:flex;align-items:center;gap:12px;min-width:0}
+.hcell img{width:58px;height:33px;object-fit:cover;border-radius:3px;border:1px solid var(--deep);background:#0a141f}
+.hcell span{color:#fff;font-weight:600;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{display:inline-block;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:12px;letter-spacing:.06em;
+  padding:5px 14px;border:1px solid;text-transform:uppercase}
+.pill.w{color:var(--good);border-color:var(--good)}
+.pill.l{color:var(--bad);border-color:var(--bad)}
+.num{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:14.5px;color:var(--text);text-align:right}
+.dimnum{font-family:'Chakra Petch',sans-serif;font-size:14px;color:var(--dim);text-align:right}
+.tr a.db{font-family:'Chakra Petch',sans-serif;font-size:15px}
+.tr a.db:hover{color:var(--orange)}
+
+#chartBox{border:1px solid var(--line);background:linear-gradient(160deg,#10233a,#0a1626 70%);padding:24px}
+#chartBox svg{width:100%;height:auto;display:block}
+.deltas{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.delta{font-family:'Chakra Petch',sans-serif;font-size:12.5px;padding:5px 11px;border:1px solid var(--line)}
+.delta.up{color:var(--good)}.delta.down{color:var(--bad)}
+
+.empty{border:1px dashed var(--line);padding:34px;text-align:center;
+  font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;line-height:2}
+.loading{padding:80px 0;text-align:center;font-family:'Share Tech Mono',monospace;
+  letter-spacing:.4em;color:var(--dim);text-transform:uppercase;animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+@media(max-width:760px){
+  .bh,.br{grid-template-columns:42px 1fr 80px 60px}
+  .bh span:nth-child(n+5),.br > *:nth-child(n+5){display:none}
+  .bh{top:61px}
+  .phead .bigava{width:64px;height:64px;font-size:26px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="logo">ONLY<span class="o">HUMANS</span></a>
+  <nav>
+    <a href="/">Factory</a>
+    <a href="/players">Ladder</a>
+    <a href="/register">Tournaments</a>
+  </nav>
+</header>
+<main id="app"><div class="loading">LOADING THE FLOOR...</div></main>
+
+<script>
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const app = document.getElementById('app');
+const pip = s => `<span class="l10">${[...(s||'')].slice(-10).map(c=>`<i class="${c}"></i>`).join('')}</span>`;
+const mono = n => esc((n||'?').trim().charAt(0).toUpperCase());
+const fdur = s => s ? `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}` : '—';
+const fdate = ts => ts ? new Date(ts*1000).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : '—';
+const stk = v => v > 0 ? `<span class="stk up">▲ ${v}W</span>` : v < 0 ? `<span class="stk down">▼ ${-v}L</span>` : `<span class="stk">—</span>`;
+
+/* ---------------- LADDER BOARD ---------------- */
+async function renderBoard(){
+  document.title = 'ONLYHUMANS — Ladder';
+  let data;
+  try{
+    const r = await fetch('/api/players');
+    if (!r.ok) throw 0;
+    data = await r.json();
+  }catch(e){
+    app.innerHTML = `<div class="empty">LADDER UNAVAILABLE — IS THE SERVER RUNNING?</div>`;
+    return;
+  }
+  const rows = data.players;
+  app.innerHTML = `
+    <div class="kicker">The scene, live</div>
+    <h1>Ladder</h1>
+    <div class="sub">Where the calibrated field stands today. Every operative on the factory floor — click a player to open their file.</div>
+    <div class="toolbar">
+      <input id="q" type="text" placeholder="SEARCH PLAYER..." autocomplete="off" spellcheck="false">
+      <span class="count">${rows.length} PLAYERS RANKED</span>
+    </div>
+    <div class="board">
+      <div class="bh"><span>#</span><span>Player</span><span style="text-align:right">MMR</span><span style="text-align:right">W–L</span><span style="text-align:right">WR</span><span style="text-align:right">Streak</span><span style="text-align:right">Last 10</span></div>
+      <div id="rows"></div>
+    </div>`;
+  const box = document.getElementById('rows');
+  function draw(filter){
+    const f = (filter||'').toLowerCase();
+    box.innerHTML = rows.filter(p => !f || p.name.toLowerCase().includes(f)).map(p => `
+      <div class="br ${p.rank<=3?'r'+p.rank:''}" data-uid="${p.uid}">
+        <span class="rk">${p.rank}</span>
+        <span class="pcell"><span class="ava"><img src="${esc(p.avatar||'')}" alt="${mono(p.name)}" onerror="this.style.display='none';this.parentNode.textContent='${mono(p.name)}'"></span>
+          <span><span class="nm">${esc(p.name)}</span>
+          <div class="meta">${p.games ? `${p.wins}W · ${p.losses}L · ${p.wr}%` : 'NO GAMES YET'}${p.calibrated?'':' · CALIBRATING'}${p.dota_rank ? ' · ' + esc(p.dota_rank).toUpperCase() : ''}</div></span></span>
+        <span class="mmr">${p.mmr.toLocaleString()}</span>
+        <span class="mono2">${p.wins}–${p.losses}</span>
+        <span class="mono2">${p.wr}%</span>
+        ${stk(p.streak)}
+        <span style="text-align:right">${pip(p.last10)}</span>
+      </div>`).join('') || `<div class="empty">NO MATCHES ON THE FLOOR</div>`;
+    box.querySelectorAll('.br').forEach(el =>
+      el.addEventListener('click', () => location.href = '/player/' + el.dataset.uid));
+  }
+  draw();
+  document.getElementById('q').addEventListener('input', e => draw(e.target.value));
+}
+
+/* ---------------- PLAYER PROFILE ---------------- */
+async function renderProfile(uid){
+  let p;
+  try{
+    const r = await fetch('/api/player/' + encodeURIComponent(uid));
+    if (r.status === 404){ app.innerHTML = `<div class="empty">PLAYER NOT FOUND ON THE FLOOR</div>`; return; }
+    if (!r.ok) throw 0;
+    p = await r.json();
+  }catch(e){
+    app.innerHTML = `<div class="empty">PROFILE UNAVAILABLE — IS THE SERVER RUNNING?</div>`;
+    return;
+  }
+  document.title = `ONLYHUMANS — ${p.name}`;
+  const s = p.stats;
+
+  let badges = '';
+  if (p.dota_rank) badges += `<span class="badge rank">${esc(p.dota_rank)}</span>`;
+  if (s) badges += s.calibration_left
+    ? `<span class="badge uncal">Calibrating · ${s.calibration_left} left</span>`
+    : `<span class="badge cal">Calibrated</span>`;
+  if (s && s.rank) badges += `<span class="badge uncal">Ladder #${s.rank} / ${s.rank_of}</span>`;
+  if (p.steam){
+    badges += `<a class="badge btn" href="${p.steam.profile_url}" target="_blank" rel="noopener">Steam Profile ↗</a>`;
+    badges += `<a class="badge btn" href="${p.steam.dotabuff_url}" target="_blank" rel="noopener">Dotabuff ↗</a>`;
+    badges += `<a class="badge btn" href="${p.steam.opendota_url}" target="_blank" rel="noopener">OpenDota ↗</a>`;
+  } else {
+    badges += `<span class="badge uncal">Steam not linked</span>`;
+  }
+
+  app.innerHTML = `
+    <a class="backlink" href="/players">← All players</a>
+    <div class="phead">
+      <div class="bigava">${p.avatar ? `<img src="${esc(p.avatar)}" alt="${mono(p.name)}" onerror="this.style.display='none';this.parentNode.textContent='${mono(p.name)}'">` : mono(p.name)}</div>
+      <div><div class="kicker">Operative file${p.steam ? ' · ID ' + p.steam.account_id : ''}</div><h1>${esc(p.name)}</h1></div>
+    </div>
+    <div class="badges">${badges}</div>
+    <div class="tabs" id="tabs">
+      <span class="tab on" data-t="overview">Overview</span>
+      <span class="tab" data-t="matches">Matches</span>
+      <span class="tab" data-t="heroes">Heroes</span>
+      <span class="tab" data-t="mmr">MMR History</span>
+    </div>
+    <div id="pane"></div>`;
+
+  const pane = document.getElementById('pane');
+
+  function overview(){
+    if (!s){ pane.innerHTML = `<div class="empty">NO INHOUSE RECORD YET — JOIN THE QUEUE, FEED THE MACHINE</div>`; return; }
+    let h = `<div class="grid">
+      <div class="stat"><div class="k">MMR</div><div class="v ice">${s.mmr.toLocaleString()}</div></div>
+      <div class="stat"><div class="k">Peak MMR</div><div class="v">${s.peak.toLocaleString()}</div></div>
+      <div class="stat"><div class="k">Wins</div><div class="v good">${s.wins}</div></div>
+      <div class="stat"><div class="k">Losses</div><div class="v bad">${s.losses}</div></div>
+      <div class="stat"><div class="k">Win rate</div><div class="v">${s.wr}%</div></div>
+      <div class="stat"><div class="k">Total matches</div><div class="v">${s.games}</div></div>
+      <div class="stat"><div class="k">Streak</div><div class="v ${s.streak>=0?'good':'bad'}">${s.streak>0?'+'+s.streak:s.streak}</div></div>
+      <div class="stat"><div class="k">Ladder rank</div><div class="v or">${s.rank ? '#'+s.rank : '—'} <sub>of ${s.rank_of}</sub></div></div>
+    </div>
+    <div style="margin-top:18px;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:14px;color:var(--dim)">LAST 10: ${pip(s.last10)}</div>`;
+    if (p.predictions){
+      const pr = p.predictions;
+      h += `<div class="grid" style="margin-top:18px">
+        <div class="stat"><div class="k">Prediction points</div><div class="v or">${pr.points}</div></div>
+        <div class="stat"><div class="k">Correct</div><div class="v good">${pr.correct}</div></div>
+        <div class="stat"><div class="k">Wrong</div><div class="v bad">${pr.wrong}</div></div>
+        <div class="stat"><div class="k">Prediction streak</div><div class="v">${pr.streak}</div></div>
+      </div>`;
+    }
+    pane.innerHTML = h;
+  }
+
+  function matches(){
+    if (!p.matches || !p.matches.length){
+      pane.innerHTML = `<div class="empty">${p.steam ? 'NO LEAGUE MATCHES IN THE ARCHIVE YET' : 'STEAM NOT LINKED — NO MATCH DATA'}</div>`; return;
+    }
+    pane.innerHTML = `<div class="tbl">
+      <div class="tr m head"><span>Hero</span><span>Result</span><span style="text-align:right">KDA</span><span style="text-align:right">GPM/XPM</span><span style="text-align:right">Duration</span><span style="text-align:right">Date</span><span></span></div>
+      ${p.matches.map(m => `
+      <div class="tr m">
+        <span class="hcell"><img src="${m.img}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span>${esc(m.hero)}</span></span>
+        <span><span class="pill ${m.won?'w':'l'}">${m.won?'WIN':'LOSS'}</span></span>
+        <span class="num">${m.k}/${m.d}/${m.a}</span>
+        <span class="num">${m.gpm}/${m.xpm}</span>
+        <span class="dimnum">${fdur(m.dur)}</span>
+        <span class="dimnum">${fdate(m.ts)}</span>
+        <a class="db" href="https://www.dotabuff.com/matches/${m.match_id}" target="_blank" rel="noopener">↗</a>
+      </div>`).join('')}
+    </div>`;
+  }
+
+  function heroes(){
+    if (!p.heroes || !p.heroes.length){
+      pane.innerHTML = `<div class="empty">${p.steam ? 'NO HERO DATA YET' : 'STEAM NOT LINKED — NO HERO DATA'}</div>`; return;
+    }
+    pane.innerHTML = `<div class="tbl">
+      <div class="tr h head"><span>Hero</span><span style="text-align:right">Games</span><span style="text-align:right">W–L</span><span style="text-align:right">Avg KDA</span><span style="text-align:right">Win%</span></div>
+      ${p.heroes.map(h => `
+      <div class="tr h">
+        <span class="hcell"><img src="${h.img}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span>${esc(h.name)}</span></span>
+        <span class="num">${h.games}</span>
+        <span class="dimnum">${h.wins}–${h.losses}</span>
+        <span class="dimnum">${h.kda}</span>
+        <span class="num" style="color:${h.wr>=50?'var(--good)':'var(--bad)'}">${h.wr}%</span>
+      </div>`).join('')}
+    </div>`;
+  }
+
+  function mmrChart(){
+    const hist = p.mmr_history || [];
+    if (hist.length < 2){ pane.innerHTML = `<div class="empty">NOT ENOUGH GAMES FOR A CHART YET</div>`; return; }
+    const W = 900, H = 260, PAD = 34;
+    const vals = hist.map(h => h.mmr);
+    const lo = Math.min(...vals) - 20, hi = Math.max(...vals) + 20;
+    const x = i => PAD + i * (W - PAD * 2) / (hist.length - 1);
+    const y = v => H - PAD - (v - lo) * (H - PAD * 2) / (hi - lo || 1);
+    const pts = hist.map((h, i) => `${x(i).toFixed(1)},${y(h.mmr).toFixed(1)}`).join(' ');
+    const area = `${PAD},${H-PAD} ${pts} ${x(hist.length-1).toFixed(1)},${H-PAD}`;
+    const gridlines = [0,.25,.5,.75,1].map(f => {
+      const v = Math.round(lo + (hi - lo) * f), yy = y(v).toFixed(1);
+      return `<line x1="${PAD}" y1="${yy}" x2="${W-PAD}" y2="${yy}" stroke="rgba(28,58,87,.5)"/>
+              <text x="${PAD-8}" y="${yy}" text-anchor="end" dominant-baseline="middle" fill="#5d7990" font-size="10" font-family="Share Tech Mono">${v}</text>`;
+    }).join('');
+    const last = hist[hist.length-1];
+    pane.innerHTML = `<div id="chartBox">
+      <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="MMR over time">
+        ${gridlines}
+        <polygon points="${area}" fill="rgba(46,143,199,.12)"/>
+        <polyline points="${pts}" fill="none" stroke="#8fd8f8" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="${x(hist.length-1).toFixed(1)}" cy="${y(last.mmr).toFixed(1)}" r="5" fill="#ff7a2f"/>
+        <text x="${x(hist.length-1).toFixed(1)}" y="${(y(last.mmr)-12).toFixed(1)}" text-anchor="end" fill="#cfeeff" font-size="12" font-family="Russo One">${last.mmr}</text>
+      </svg>
+      <div class="deltas">${hist.slice(-15).reverse().map(h =>
+        `<span class="delta ${h.delta>=0?'up':'down'}">${h.delta>=0?'+':''}${h.delta} · ${esc(h.ts.slice(5,10))}</span>`).join('')}</div>
+    </div>`;
+  }
+
+  const panes = {overview, matches, heroes, mmr: mmrChart};
+  document.getElementById('tabs').addEventListener('click', e => {
+    const t = e.target.closest('.tab');
+    if (!t) return;
+    document.querySelectorAll('.tab').forEach(el => el.classList.toggle('on', el === t));
+    panes[t.dataset.t]();
+  });
+  overview();
+}
+
+/* ---------------- router ---------------- */
+const m = location.pathname.match(/^\/player\/(\d+)$/);
+if (m) renderProfile(m[1]); else renderBoard();
+</script>
+</body>
+</html>
