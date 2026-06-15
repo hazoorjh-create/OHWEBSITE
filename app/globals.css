@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/* ---- design tokens (dark defaults) ---- */
+:root {
+  --bg: #04070d;
+  --navy: #0b1626;
+  --panel: #0e1c2e;
+  --line: #1c3a57;
+  --ice: #8fd8f8;
+  --ice2: #cfeeff;
+  --blue: #2e8fc7;
+  --deep: #16486e;
+  --orange: #ff7a2f;
+  --orange2: #e0481c;
+  --good: #5cf2a6;
+  --bad: #ff5c5c;
+  --text: #c8dcec;
+  --dim: #5d7990;
+}
+
+/* expose tokens + fonts to Tailwind utilities (text-ice, bg-panel, font-display…) */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-navy: var(--navy);
+  --color-panel: var(--panel);
+  --color-line: var(--line);
+  --color-ice: var(--ice);
+  --color-ice2: var(--ice2);
+  --color-blue: var(--blue);
+  --color-deep: var(--deep);
+  --color-orange: var(--orange);
+  --color-orange2: var(--orange2);
+  --color-good: var(--good);
+  --color-bad: var(--bad);
+  --color-text: var(--text);
+  --color-dim: var(--dim);
+
+  --font-display: "Russo One", sans-serif;
+  --font-body: "Chakra Petch", sans-serif;
+  --font-mono: "Share Tech Mono", monospace;
+}
+
+/* ---- shared base ---- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Chakra Petch", sans-serif;
+}
+a {
+  color: var(--ice);
+  text-decoration: none;
+}
+.mono {
+  font-family: "Share Tech Mono", monospace;
+}
+svg {
+  display: block;
+}
+::selection {
+  background: var(--orange);
+  color: #fff;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #060c16;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--deep), var(--blue));
+  border-radius: 5px;
+}
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}

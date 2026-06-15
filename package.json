@@ -1,0 +1,28 @@
+{
+  "name": "onlyhumans-web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@libsql/client": "^0.17.3",
+    "gsap": "^3.15.0",
+    "next": "^16.2.9",
+    "next-auth": "^5.0.0-beta.31",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.1",
+    "@types/node": "^25.9.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "tailwindcss": "^4.3.1",
+    "typescript": "^6.0.3"
+  }
+}
