@@ -385,7 +385,8 @@ body { overflow-x: hidden; }
 .chips{display:flex;flex-wrap:wrap;gap:5px}
 .chips.right{justify-content:flex-end}
 .chip{font-size:13px;padding:4px 11px;border:1px solid var(--line);background:#0d1d31;color:var(--text);
-  border-radius:2px;white-space:nowrap}
+  border-radius:2px;white-space:nowrap;transition:0.2s}
+.chip.hoverable:hover{border-color:var(--orange);color:var(--orange);cursor:pointer;transform:translateY(-2px)}
 .tw .chip{border-color:rgba(92,242,166,.5);background:rgba(92,242,166,.07);color:#dcffee}
 .tl .chip{opacity:.5}
 .hmid{text-align:center}
