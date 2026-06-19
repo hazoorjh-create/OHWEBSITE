@@ -50,7 +50,7 @@ export function Verify() {
             <span id="vStamp">★ CERTIFIED HUMAN ★</span>
           </div>
           <div className="final-ctas">
-            <a className="btn discord" href="https://discord.gg/" target="_blank" rel="noopener">
+            <a className="btn discord" href="https://discord.gg/md6Pkv4867" target="_blank" rel="noopener">
               <svg width="22" height="17" viewBox="0 0 127 96" fill="#fff">
                 <path d={DISCORD_PATH} />
               </svg>

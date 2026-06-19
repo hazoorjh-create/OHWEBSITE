@@ -453,7 +453,7 @@ async def register_page(request):
 
 
 async def logo(request):
-    p = BASE_DIR / "logo.png"
+    p = BASE_DIR / "logo_v2.png"
     if p.exists():
         return web.FileResponse(p)
     raise web.HTTPNotFound()
@@ -805,7 +805,7 @@ def make_app():
         web.get("/api/players", api_players),
         web.get("/api/player/{uid}", api_player),
         web.get("/", index),
-        web.get("/logo.png", logo),
+        web.get("/logo_v2.png", logo),
         web.get("/auth/login", auth_login),
         web.get("/auth/callback", auth_callback),
         web.get("/auth/logout", auth_logout),
