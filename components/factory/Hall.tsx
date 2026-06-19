@@ -1,7 +1,16 @@
+import Link from "next/link";
+
 const CHAMPS = [
   "Swiftblad3", ".JoJo", "Swaggy Brisingr", "Dr_Nemesis_X",
   "Phantom", "energy", "SSM555", "fonke monke",
 ];
+
+const CHAMPS_IDS: Record<string, string> = {
+  ".JoJo": "210418511468560384",
+  "Swaggy Brisingr": "434008650684694548",
+  "Phantom": "353894983914356736",
+  "energy": "1332232206806159380"
+};
 
 export function Hall() {
   return (
@@ -27,11 +36,20 @@ export function Hall() {
             <div className="champ">TEAM ENERGY</div>
             <div className="feat">The first squad to walk out of the factory with the trophy.</div>
             <div className="chips" style={{ justifyContent: "center", marginTop: "16px" }}>
-              {CHAMPS.map((c) => (
-                <span className="chip" key={c}>
-                  {c}
-                </span>
-              ))}
+              {CHAMPS.map((c) => {
+                const id = CHAMPS_IDS[c];
+                return id ? (
+                  <Link href={`/player/${id}`} key={c} style={{ textDecoration: "none" }}>
+                    <span className="chip hoverable">
+                      {c}
+                    </span>
+                  </Link>
+                ) : (
+                  <span className="chip" key={c}>
+                    {c}
+                  </span>
+                );
+              })}
             </div>
             <div className="plinth" />
           </div>
