@@ -11,7 +11,9 @@ const CHAMPS_IDS: Record<string, string> = {
   "Swaggy Brisingr": "434008650684694548",
   "Dr_Nemesis_X": "910127575446204436",
   "Phantom": "353894983914356736",
-  "energy": "1332232206806159380"
+  "energy": "1332232206806159380",
+  "SSM555": "498239725526581248",
+  "fonke monke": "191931755677220865"
 };
 
 export function Hall() {
