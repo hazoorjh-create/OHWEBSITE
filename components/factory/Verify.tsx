@@ -10,7 +10,7 @@ export function Verify() {
         <div className="vinner">
           <div id="vTitle">
             <div id="vLogo" style={{ width: "min(150px,34vw)", margin: "0 auto 10px", opacity: 0, filter: "drop-shadow(0 8px 30px rgba(46,143,199,.5))" }}>
-              <LogoSvg idPrefix="verify" />
+              <img src="/logo_v2.png" alt="ONLYHUMANS Verified" style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
             <div className="plaque" style={{ marginBottom: "14px" }}>
               <span className="num">07</span>

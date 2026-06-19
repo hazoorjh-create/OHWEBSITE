@@ -48,7 +48,11 @@ export function Hero() {
       <div className="steam" style={{ left: "68%", bottom: "250px", animationDelay: "2.2s" }} />
       <div id="heroTop">
         <div className="logo">
-          <LogoSvg idPrefix="hero" />
+          <img 
+            src="/logo_v2.png" 
+            alt="ONLYHUMANS" 
+            style={{ width: "min(270px, 56vw)", height: "auto", margin: "0 auto", filter: "drop-shadow(0 10px 40px rgba(46,143,199,.45))", display: "block" }} 
+          />
         </div>
         <h1>ONLYHUMANS</h1>
         <div className="slogan">&quot;NO SHORTCUTS.&quot;</div>
