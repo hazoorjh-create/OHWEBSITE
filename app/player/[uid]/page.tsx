@@ -5,7 +5,7 @@ import { buildProfile } from "@/lib/profile";
 import { OhHeader } from "@/components/players/OhHeader";
 import { PlayerProfile } from "@/components/players/PlayerProfile";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 const getProfile = cache(buildProfile);
 
