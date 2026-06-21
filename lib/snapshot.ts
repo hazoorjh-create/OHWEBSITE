@@ -241,7 +241,8 @@ async function buildSnapshot(): Promise<Snapshot> {
 export async function getSnapshot(): Promise<Snapshot> {
   const isStale = Date.now() / 1000 - _cache.built > 300;
   if (isStale && !_building) {
-    _building = buildSnapshot().catch(console.error).finally(() => {
+    _building = buildSnapshot();
+    _building.catch(console.error).finally(() => {
       _building = null;
     });
   }

@@ -192,7 +192,8 @@ async function buildNameMap(): Promise<Map<string, string>> {
 export async function nameMap(): Promise<Map<string, string>> {
   const isStale = Date.now() / 1000 - _nameCache.built > 300;
   if (isStale && !_nameBuilding) {
-    _nameBuilding = buildNameMap().catch(console.error).finally(() => {
+    _nameBuilding = buildNameMap();
+    _nameBuilding.catch(console.error).finally(() => {
       _nameBuilding = null;
     });
   }

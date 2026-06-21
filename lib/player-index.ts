@@ -105,7 +105,8 @@ async function build(): Promise<Index> {
 async function getIndex(): Promise<Index> {
   const isStale = Date.now() / 1000 - _idx.built > 300;
   if (isStale && !_building) {
-    _building = build().catch(console.error).finally(() => {
+    _building = build();
+    _building.catch(console.error).finally(() => {
       _building = null;
     });
   }
