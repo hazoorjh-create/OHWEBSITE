@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import Link from "next/link";
 import type { HistEntry } from "@/lib/snapshot";
 import { LiveGames } from "./LiveGames";
 
@@ -27,13 +28,19 @@ function HistRow({ m }: { m: HistEntry }) {
   if (delta) parts.push(`±${delta} MMR`);
   if (m.id)
     parts.push(
-      <a key="db" href={`https://www.dotabuff.com/matches/${m.id}`} target="_blank" rel="noopener">
+      <a 
+        key="db" 
+        href={`https://www.dotabuff.com/matches/${m.id}`} 
+        target="_blank" 
+        rel="noopener"
+        onClick={(e) => e.stopPropagation()}
+      >
         dotabuff ↗
       </a>,
     );
 
-  return (
-    <div className="hrow">
+  const inner = (
+    <>
       <div className="mh">
         <div className="hn2">#{m.n}</div>
         <div className="hd">
@@ -55,8 +62,18 @@ function HistRow({ m }: { m: HistEntry }) {
         </div>
       </div>
       <Chips names={m.t2} right={true} win={m.win} />
-    </div>
+    </>
   );
+
+  if (m.id) {
+    return (
+      <Link href={`/match/${m.id}`} className="hrow hoverable" style={{ textDecoration: "none", color: "inherit" }}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return <div className="hrow">{inner}</div>;
 }
 
 export function Games({ hist }: { hist: HistEntry[] }) {

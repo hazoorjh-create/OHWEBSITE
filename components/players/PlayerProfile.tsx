@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { ProfileData } from "@/lib/profile";
 import { Avatar } from "./Avatar";
 
@@ -66,7 +67,7 @@ function Matches({ p }: { p: ProfileData }) {
         <span />
       </div>
       {p.matches.map((m) => (
-        <div className="tr m" key={m.match_id}>
+        <Link href={`/match/${m.match_id}`} className="tr m hoverable" key={m.match_id} style={{ textDecoration: "none", color: "inherit" }}>
           <span className="hcell">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={m.img} alt="" loading="lazy" onError={(e) => (e.currentTarget.style.visibility = "hidden")} />
@@ -79,10 +80,10 @@ function Matches({ p }: { p: ProfileData }) {
           <span className="num">{m.gpm}/{m.xpm}</span>
           <span className="dimnum">{fdur(m.dur)}</span>
           <span className="dimnum">{fdate(m.ts)}</span>
-          <a className="db" href={`https://www.dotabuff.com/matches/${m.match_id}`} target="_blank" rel="noopener">
+          <a className="db" href={`https://www.dotabuff.com/matches/${m.match_id}`} target="_blank" rel="noopener" onClick={(e) => e.stopPropagation()}>
             ↗
           </a>
-        </div>
+        </Link>
       ))}
     </div>
   );
