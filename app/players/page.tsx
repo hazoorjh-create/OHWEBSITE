@@ -4,7 +4,7 @@ import { getLadder } from "@/lib/board";
 import { OhHeader } from "@/components/players/OhHeader";
 import { LadderBoard } from "@/components/players/LadderBoard";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "ONLYHUMANS — Ladder",
