@@ -1,5 +1,5 @@
-import { queryOne, str } from "./db";
-import { nameMap } from "./queries";
+import { query, queryOne, str } from "./db";
+import { nameMap, STEAM_ID_BASE } from "./queries";
 
 export interface MatchPlayer {
   account_id: number;
@@ -43,13 +43,35 @@ export async function getMatchDetails(matchId: string): Promise<MatchDetails | n
     return null;
   }
 
+  const rawPlayers = m.players || [];
+  
+  // Convert Steam32 account_ids to Steam64 and lookup discord user_ids
+  const steam64s = rawPlayers.map((p: any) => String(BigInt(p.account_id || 0) + STEAM_ID_BASE));
+  const steamToUser = new Map<number, string>();
+  
+  if (steam64s.length > 0) {
+    const placeholders = steam64s.map(() => "?").join(",");
+    const rows = await query(`SELECT user_id, steam_id FROM steam_links WHERE steam_id IN (${placeholders})`, steam64s);
+    for (const r of rows) {
+      const s64 = BigInt(r.steam_id as any);
+      const s32 = Number(s64 - STEAM_ID_BASE);
+      steamToUser.set(s32, String(r.user_id));
+    }
+  }
+
   const names = await nameMap();
 
-  const players: MatchPlayer[] = (m.players || []).map((p: any) => {
+  const players: MatchPlayer[] = rawPlayers.map((p: any) => {
     const isRadiant = p.player_slot < 128;
+    const acc = p.account_id || 0;
+    
+    const uid = steamToUser.get(acc);
+    let pname = "Unknown";
+    if (uid && names.has(uid)) pname = names.get(uid)!;
+
     return {
-      account_id: p.account_id || 0,
-      name: names.get(String(p.account_id)) || "Unknown",
+      account_id: acc,
+      name: pname,
       hero_id: p.hero_id || 0,
       kills: p.kills || 0,
       deaths: p.deaths || 0,
