@@ -159,12 +159,12 @@ let _nameCache: { built: number; map: Map<string, string> } = {
   built: 0,
   map: new Map(),
 };
+let _nameBuilding: Promise<Map<string, string>> | null = null;
 
-export async function nameMap(): Promise<Map<string, string>> {
-  if (Date.now() / 1000 - _nameCache.built <= 300) return _nameCache.map;
+async function buildNameMap(): Promise<Map<string, string>> {
   const rows = await query(
     "SELECT team1_ids, team2_ids, team1_names, team2_names " +
-      "FROM match_history WHERE guild_id = ? ORDER BY timestamp",
+      "FROM match_history WHERE guild_id = ? ORDER BY timestamp DESC LIMIT 500",
     [GUILD_ID],
   );
   const nm = new Map<string, string>();
@@ -181,12 +181,25 @@ export async function nameMap(): Promise<Map<string, string>> {
       for (let i = 0; i < n; i++) {
         const id = ids[i].trim();
         const nme = names[i].trim();
-        if (id && nme) nm.set(id, nme);
+        if (id && nme && !nm.has(id)) nm.set(id, nme);
       }
     }
   }
   _nameCache = { built: Date.now() / 1000, map: nm };
   return nm;
+}
+
+export async function nameMap(): Promise<Map<string, string>> {
+  const isStale = Date.now() / 1000 - _nameCache.built > 300;
+  if (isStale && !_nameBuilding) {
+    _nameBuilding = buildNameMap().catch(console.error).finally(() => {
+      _nameBuilding = null;
+    });
+  }
+  if (_nameCache.built > 0) {
+    return _nameCache.map;
+  }
+  return _nameBuilding!;
 }
 
 // ---------------- live games (mirror of bot's /live) ----------------

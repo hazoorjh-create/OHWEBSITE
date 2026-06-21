@@ -103,13 +103,16 @@ async function build(): Promise<Index> {
 }
 
 async function getIndex(): Promise<Index> {
-  if (Date.now() / 1000 - _idx.built <= 300) return _idx;
-  if (!_building) {
-    _building = build().finally(() => {
+  const isStale = Date.now() / 1000 - _idx.built > 300;
+  if (isStale && !_building) {
+    _building = build().catch(console.error).finally(() => {
       _building = null;
     });
   }
-  return _building;
+  if (_idx.built > 0) {
+    return _idx;
+  }
+  return _building!;
 }
 
 export async function signatureHeroes(
