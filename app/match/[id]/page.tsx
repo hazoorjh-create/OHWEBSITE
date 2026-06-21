@@ -15,8 +15,6 @@ export async function generateMetadata({
   return { title: `ONLYHUMANS — Match ${id}` };
 }
 
-import ConveyorBelt from "@/components/factory/ConveyorBelt";
-
 export default async function MatchPage({
   params,
 }: {
@@ -34,7 +32,6 @@ export default async function MatchPage({
       <OhHeader />
       <main>
         <Scoreboard match={match} />
-        <ConveyorBelt />
       </main>
     </div>
   );
