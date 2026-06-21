@@ -41,12 +41,15 @@ function PlayerRow({ p }: { p: MatchPlayer }) {
 function TeamTable({ name, score, win, players }: { name: string; score: number; win: boolean; players: MatchPlayer[] }) {
   const isRad = name === "RADIANT";
   const color = isRad ? "var(--good)" : "var(--bad)";
+  const themeClass = win ? "theme-human" : "theme-animal";
+  const subtitle = win ? "— HUMANITY CONFIRMED" : "— SUBJECTS REJECTED (ANIMAL)";
+
   return (
     <div style={{ flex: "1 1 48%", minWidth: "400px", marginBottom: "40px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderBottom: `2px solid ${color}`, paddingBottom: "10px", marginBottom: "10px" }}>
         <div>
           <h2 style={{ margin: 0, color, fontFamily: "var(--font-display)", letterSpacing: "0.1em", fontSize: "20px" }}>
-            {win && "🏆 "} {name}
+            {win && "🏆 "} {name} <span style={{ fontSize: "12px", opacity: 0.8, marginLeft: "10px", letterSpacing: "0.15em" }}>{subtitle}</span>
           </h2>
         </div>
         <div style={{ fontFamily: "var(--font-display)", fontSize: "24px", color }}>
@@ -54,7 +57,7 @@ function TeamTable({ name, score, win, players }: { name: string; score: number;
         </div>
       </div>
       
-      <div style={{ background: "rgba(10,22,38,0.5)", border: "1px solid rgba(46,143,199,0.2)", borderRadius: "6px", padding: "10px" }}>
+      <div className={themeClass} style={{ borderRadius: "6px", padding: "10px" }}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ color: "var(--dim)", fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.05em", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
