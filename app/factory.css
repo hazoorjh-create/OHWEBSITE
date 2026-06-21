@@ -300,7 +300,7 @@ body { overflow-x: hidden; }
 #verifyStage{height:100vh;overflow:hidden;position:relative;text-align:center;
   background:radial-gradient(700px 380px at 50% 32%,rgba(46,143,199,.12),transparent 65%),
   linear-gradient(#04070d,#091627 45%,#04070d)}
-#verifyStage .vinner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 5vw}
+#verifyStage .vinner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 5vw 80px}
 #vTitle{margin-bottom:26px}
 #gate{position:relative;width:min(540px,90vw);height:300px}
 #gate .frame{position:absolute;inset:0;border:2px solid var(--line);

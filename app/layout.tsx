@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   title: "ONLYHUMANS — The Human Factory",
   description:
     "ONLYHUMANS Dota 2 community — the human manufacturing facility. Live games, match history, tournaments and leaderboard.",
+  openGraph: {
+    images: ["https://www.onlyhumans.in/logo_v2.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://www.onlyhumans.in/logo_v2.png"],
+  },
 };
 
 export const viewport: Viewport = {
