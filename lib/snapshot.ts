@@ -211,11 +211,10 @@ function buildTrend(meta: Map<string, MatchMeta>): Trend {
   return { games: recent.length, picked, banned, best, worst };
 }
 
-let _cache: { built: number; snap: Snapshot } | null = null;
+let _cache: { built: number; snap: Snapshot } = { built: 0, snap: {} as Snapshot };
+let _building: Promise<Snapshot> | null = null;
 
-export async function getSnapshot(): Promise<Snapshot> {
-  if (_cache && Date.now() / 1000 - _cache.built <= 300) return _cache.snap;
-
+async function buildSnapshot(): Promise<Snapshot> {
   const meta = await buildMatchMeta();
   const [lb, histRows] = await Promise.all([
     buildLb(),
@@ -237,4 +236,17 @@ export async function getSnapshot(): Promise<Snapshot> {
   };
   _cache = { built: Date.now() / 1000, snap };
   return snap;
+}
+
+export async function getSnapshot(): Promise<Snapshot> {
+  const isStale = Date.now() / 1000 - _cache.built > 300;
+  if (isStale && !_building) {
+    _building = buildSnapshot().catch(console.error).finally(() => {
+      _building = null;
+    });
+  }
+  if (_cache.built > 0) {
+    return _cache.snap;
+  }
+  return _building!;
 }
