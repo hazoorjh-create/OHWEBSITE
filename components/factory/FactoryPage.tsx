@@ -43,8 +43,8 @@ export function FactoryPage({ snap }: { snap: Snapshot }) {
       <SectionNav authSlot={<AuthSlot me={me} onOpen={() => setModalOpen(true)} />} />
       <Hero />
       <Journey />
-      <Games hist={snap.hist} />
       <Tournaments />
+      <Games hist={snap.hist} />
       <Lift lb={snap.lb} trend={snap.trend} generated={snap.generated} league={snap.league} />
       <Hall />
       <Verify />
